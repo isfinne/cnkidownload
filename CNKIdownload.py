@@ -6,9 +6,10 @@ import tkinter
 import tkinter.messagebox
 from tkinter.filedialog import askopenfilename
 
-driver = webdriver.Chrome()
 root = tkinter.Tk()
 root.withdraw()  # ****实现主窗口隐藏
+driver = webdriver.Chrome()
+
 
 def get_url(name):
     site = 'https://chn.oversea.cnki.net/kns/DefaultResult/Index?dbcode=SCDB&kw=&korder=TI'
@@ -19,13 +20,13 @@ def get_url(name):
     button_search.click()  # 点击搜索
     time.sleep(2)  # 停一小会儿
     driver.switch_to.default_content()  # 找到子页面
-    try:
-        order = driver.find_element_by_css_selector('#orderList > li:nth-child(1)')  # 按相关度排序按钮
-    except:
-        return ""  # 搜索不到论文
-    order.click()
-    time.sleep(2)
-    driver.switch_to.default_content()
+    # try:
+    #     order = driver.find_element_by_css_selector('#orderList > li:nth-child(1)')  # 按相关度排序按钮
+    # except:
+    #     return ""  # 搜索不到论文
+    # order.click()
+    # time.sleep(2)
+    # driver.switch_to.default_content()
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     for i in soup.find_all('tr'):
         paper = str(i)
